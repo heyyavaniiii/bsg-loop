@@ -7,18 +7,17 @@ A scheduled Playwright suite runs against a demo banking site; every failure is 
 (deduplicated, with screenshot and log), and closed automatically when the test passes again. The same runs keep
 user-manual SOPs and a Power BI dashboard up to date.
 
-```mermaid
-flowchart LR
-    A[GitHub Actions<br/>nightly + on push] --> B[Playwright suite<br/>41 data-driven cases]
-    S[Faker synthetic<br/>customers, KYC, payees] --> B
-    B -->|results/run.json<br/>steps, screenshots, logs| C{Pipeline}
-    C -->|failures, PII redacted| D[Claude triage<br/>class, root cause, severity, bug text]
-    D --> E[Jira Cloud REST<br/>create or comment, attach evidence]
-    E -->|test passes again| F[Auto-close]
-    C -->|passing journeys| G[Claude SOP writer<br/>docs/sops/*.md]
-    E --> H[(CSV feeds)]
+```flowchart LR
+    A["GitHub Actions: nightly and on push"] --> B["Playwright suite: data-driven cases"]
+    S["Faker synthetic customers, KYC, payees"] --> B
+    B -->|"run.json: steps, screenshots, logs"| C{"Pipeline"}
+    C -->|"failures, PII redacted"| D["Claude triage: class, root cause, severity, bug text"]
+    D --> E["Jira Cloud REST: create or comment, attach evidence"]
+    E -->|"test passes again"| F["Auto-close"]
+    C -->|"passing journeys"| G["Claude SOP writer: docs/sops"]
+    E --> H[("CSV feeds")]
     C --> H
-    H --> I[Power BI dashboard]
+    H --> I["Power BI dashboard"]
 ```
 
 ## What is different about this project
