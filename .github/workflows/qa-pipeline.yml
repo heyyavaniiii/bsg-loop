@@ -1,0 +1,70 @@
+name: QA pipeline
+
+on:
+  schedule:
+    - cron: "30 2 * * *" # 08:00 IST daily
+  workflow_dispatch:
+    inputs:
+      canaries:
+        description: "Include deliberately failing canary tests (1 = yes)"
+        default: "0"
+  push:
+    branches: [main]
+
+permissions:
+  contents: write # lets the job commit dashboard CSVs + refreshed SOPs back
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+      - run: python -m playwright install --with-deps chromium
+
+      - name: Unit tests (offline)
+        run: pytest tests_unit -q
+
+      - name: Playwright suite
+        id: suite
+        continue-on-error: true # failures are triaged below, not hidden
+        env:
+          RUN_CANARIES: ${{ github.event.inputs.canaries || '0' }}
+        run: pytest tests --html=results/report.html --self-contained-html -q
+
+      - name: Triage failures, sync Jira, refresh SOPs, export dashboard feeds
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_PROJECT_KEY: ${{ secrets.JIRA_PROJECT_KEY }}
+        run: python -m pipeline.run_pipeline
+
+      - name: Publish HTML report + evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qa-report-${{ github.run_number }}
+          path: |
+            results/report.html
+            results/run.json
+            results/triage.json
+            results/artifacts/**/failure.png
+            results/artifacts/**/run.log
+
+      - name: Commit dashboard feeds and SOPs
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "bsg-loop-bot"
+          git config user.email "bsg-loop-bot@users.noreply.github.com"
+          git add dashboard/*.csv docs/sops
+          git diff --cached --quiet || git commit -m "chore: refresh dashboard feeds and SOPs [skip ci]"
+          git push
