@@ -7,7 +7,8 @@ A scheduled Playwright suite runs against a demo banking site; every failure is 
 (deduplicated, with screenshot and log), and closed automatically when the test passes again. The same runs keep
 user-manual SOPs and a Power BI dashboard up to date.
 
-```flowchart LR
+```mermaid
+flowchart LR
     A["GitHub Actions: nightly and on push"] --> B["Playwright suite: data-driven cases"]
     S["Faker synthetic customers, KYC, payees"] --> B
     B -->|"run.json: steps, screenshots, logs"| C{"Pipeline"}
@@ -18,6 +19,7 @@ user-manual SOPs and a Power BI dashboard up to date.
     E --> H[("CSV feeds")]
     C --> H
     H --> I["Power BI dashboard"]
+
 ```
 
 ## What is different about this project
