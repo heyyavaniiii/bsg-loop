@@ -1,6 +1,6 @@
 # Pay a bill to a new payee
 
-<!--status-->⚠️ **Possible drift** - the automated test for this journey failed in run `20261024T025806Z`. Verify before relying on this SOP.
+<!--status-->✅ Verified by passing automated run `20261025T025848Z` (commit `d557869`).
 
 _Auto-generated from test `tests/test_billpay.py::test_bill_payment_valid[chromium]` (recorded-steps)._
 
