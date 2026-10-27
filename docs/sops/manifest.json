@@ -3,14 +3,14 @@
     "title": "Pay a bill to a new payee",
     "hash": "1757a5b7e7f6",
     "status": "verified",
-    "run_id": "20261026T030309Z",
+    "run_id": "20261027T030209Z",
     "test": "tests/test_billpay.py::test_bill_payment_valid[chromium]"
   },
   "open-a-new-savings-account": {
     "title": "Open a new savings account",
     "hash": "b02a7dbf23b3",
     "status": "verified",
-    "run_id": "20261026T030309Z",
+    "run_id": "20261027T030209Z",
     "test": "tests/test_open_account.py::test_open_savings_account[chromium]"
   }
 }
