@@ -1,6 +1,6 @@
 # Register as a new online banking customer
 
-<!--status-->⚠️ **Possible drift** - the automated test for this journey failed in run `20261103T031636Z`. Verify before relying on this SOP.
+<!--status-->⚠️ **Possible drift** - the automated test for this journey failed in run `20261104T031736Z`. Verify before relying on this SOP.
 
 _Auto-generated from test `tests/test_registration.py::test_register_new_customer[chromium]` (recorded-steps)._
 
