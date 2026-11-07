@@ -1,6 +1,6 @@
 # Open a new savings account
 
-<!--status-->✅ Verified by passing automated run `20261106T031641Z` (commit `3239b6b`).
+<!--status-->⚠️ **Possible drift** - the automated test for this journey failed in run `20261107T031538Z`. Verify before relying on this SOP.
 
 _Auto-generated from test `tests/test_open_account.py::test_open_savings_account[chromium]` (recorded-steps)._
 
