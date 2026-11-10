@@ -1,6 +1,6 @@
 # Log in to online banking
 
-<!--status-->⚠️ **Possible drift** - the automated test for this journey failed in run `20261109T031427Z`. Verify before relying on this SOP.
+<!--status-->✅ Verified by passing automated run `20261110T101149Z` (commit `4f9f5a8`).
 
 _Auto-generated from test `tests/test_login.py::test_login_valid_credentials[chromium]` (recorded-steps)._
 
