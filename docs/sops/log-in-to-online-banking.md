@@ -1,6 +1,6 @@
 # Log in to online banking
 
-<!--status-->⚠️ **Possible drift** - the automated test for this journey failed in run `20261119T103547Z`. Verify before relying on this SOP.
+<!--status-->⚠️ **Possible drift** - the automated test for this journey failed in run `20261120T101622Z`. Verify before relying on this SOP.
 
 _Auto-generated from test `tests/test_login.py::test_login_valid_credentials[chromium]` (recorded-steps)._
 
